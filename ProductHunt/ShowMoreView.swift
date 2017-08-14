@@ -32,7 +32,10 @@ class ShowMoreView: UIView {
 		toggle(to: state)
 	}
 	
+	var state: ShowMoreViewState = .showButton
+	
 	func toggle(to state: ShowMoreViewState) {
+		self.state = state
 		switch state {
 		case .showButton:
 			loader.stopAnimating()
@@ -61,11 +64,8 @@ class ShowMoreView: UIView {
 		view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
 		return view
 	}()
-	
-}
 
-//MARK: - Making constraints for UI elements
-extension ShowMoreView {
+	//MARK: - Making constraints for UI elements
 	func setupViews() {
 		
 		addSubview(loader)

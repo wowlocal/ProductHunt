@@ -48,7 +48,7 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 			categoriesCollectionView.reloadData()
 		}
 	}
-	var whowExtraCategories: Bool {
+	var showExtraCategories: Bool {
 		return categories.count > numberOfShownCategories
 	}
 	var numberOfShownPosts = 5
@@ -191,6 +191,10 @@ extension ProductListTableViewController {
 		productPageViewController.post = posts[indexPath.item]
 		navigationController?.pushViewController(productPageViewController, animated: true)
 	}
+	
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		print("")
+	}
 
 }
 
@@ -205,7 +209,7 @@ extension ProductListTableViewController: ShowMoreViewDelegate {
 extension ProductListTableViewController: UICollectionViewDelegate {
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		if whowExtraCategories && indexPath.item == numberOfShownCategories {
+		if showExtraCategories && indexPath.item == numberOfShownCategories {
 			let categoriesTableViewController = CategoriesTableViewController()
 			categoriesTableViewController.categories = categories
 			categoriesTableViewController.mainScreen = self
@@ -222,14 +226,14 @@ extension ProductListTableViewController: UICollectionViewDelegate {
 extension ProductListTableViewController: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		if whowExtraCategories {
+		if showExtraCategories {
 			return numberOfShownCategories + 1
 		}
 		return categories.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		if whowExtraCategories, indexPath.item == numberOfShownCategories {
+		if showExtraCategories, indexPath.item == numberOfShownCategories {
 			let cell = categoriesCollectionView.dequeueReusableCell(withReuseIdentifier: showMoreCategoriesCellId, for: indexPath)
 			return cell
 		}
