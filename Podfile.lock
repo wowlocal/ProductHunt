@@ -1,0 +1,35 @@
+PODS:
+  - Alamofire (4.4.0)
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - DZNEmptyDataSet (1.8.1)
+  - SnapKit (3.2.0)
+  - Toast-Swift (2.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.4)
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
+  - DZNEmptyDataSet
+  - SnapKit (~> 3.2.0)
+  - Toast-Swift (~> 2.0.0)
+
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: 6dd284bde21ea2e7f9fd89bc36f40df16e16369d
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
+
+PODFILE CHECKSUM: 2a23c832c43dc76940194c61a12932b028a6cab9
+
+COCOAPODS: 1.2.0
