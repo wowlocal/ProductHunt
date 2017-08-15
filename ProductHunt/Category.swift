@@ -17,21 +17,31 @@ func != (a: Category, b: Category) -> Bool {
 }
 
 struct Category {
-	let slug: String?
-	let name: String?
-	let color: UIColor?
+	private let _slug: String?
+	private let _name: String?
+	private let _color: UIColor?
+	
+	var slug: String? {
+		return _slug
+	}
+	var name: String? {
+		return _name
+	}
+	var color: UIColor? {
+		return _color
+	}
 	
 	init(dictionary: [String: AnyObject]) {
-		self.slug = dictionary["slug"] as? String
-		self.name = dictionary["name"] as? String
+		self._slug = dictionary["slug"] as? String
+		self._name = dictionary["name"] as? String
 		if let hexColor = dictionary["color"] as? String {
-			self.color = UIColor.init(hexString: hexColor)
-		} else { self.color = nil }
+			self._color = UIColor.init(hexString: hexColor)
+		} else { self._color = nil }
 	}
 	init(slug: String, name: String, color: UIColor) {
-		self.slug = slug
-		self.name = name
-		self.color = color
+		self._slug = slug
+		self._name = name
+		self._color = color
 	}
 	
 	static func parseCategories(response: Any?) -> [Category]? {

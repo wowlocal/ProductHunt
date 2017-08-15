@@ -9,24 +9,43 @@
 import Foundation
 
 struct Post {
-	let name: String?
-	var votes: Int?
-	let thumbnailURL: String?
-	let screenshotURL: String?
-	let redirectURL: String?
-	let tagline: String?
+	private let _name: String?
+	private var _votes: Int?
+	private let _thumbnailURL: String?
+	private let _screenshotURL: String?
+	private let _redirectURL: String?
+	private let _tagline: String?
+	
+	var name: String? {
+		return _name
+	}
+	var votes: Int? {
+		return _votes
+	}
+	var thumbnailURL: String? {
+		return _thumbnailURL
+	}
+	var screenshotURL: String? {
+		return _screenshotURL
+	}
+	var redirectURL: String? {
+		return _redirectURL
+	}
+	var tagline: String? {
+		return _tagline
+	}
 	
 	init(dictionary: [String: AnyObject]) {
-		self.name = dictionary["name"] as? String
-		self.votes = dictionary["votes_count"] as? Int
-		self.tagline = dictionary["tagline"] as? String
-		self.redirectURL = dictionary["redirect_url"] as? String
+		self._name = dictionary["name"] as? String
+		self._votes = dictionary["votes_count"] as? Int
+		self._tagline = dictionary["tagline"] as? String
+		self._redirectURL = dictionary["redirect_url"] as? String
 		if let dictScreenshot = dictionary["screenshot_url"] as? [String: String] {
-			self.screenshotURL = dictScreenshot["300px"]
-		} else { self.screenshotURL = nil }
+			self._screenshotURL = dictScreenshot["300px"]
+		} else { self._screenshotURL = nil }
 		if let dictThumbnail = dictionary["thumbnail"] as? [String: AnyObject] {
-			self.thumbnailURL = dictThumbnail["image_url"] as? String
-		} else { self.thumbnailURL = nil }
+			self._thumbnailURL = dictThumbnail["image_url"] as? String
+		} else { self._thumbnailURL = nil }
 	}
 	
 	static func parsePosts(response: Any?) -> [Post]? {
