@@ -193,7 +193,10 @@ extension ProductListTableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		print("")
+		//TODO: loading latest posts
+		if indexPath.item == posts.count - 2 {
+			print("start downloading more posts if show more enabled")
+		}
 	}
 
 }
@@ -202,6 +205,7 @@ extension ProductListTableViewController {
 extension ProductListTableViewController: ShowMoreViewDelegate {
 	func showMoreView(_ showMoreView: ShowMoreView, button: UIButton) {
 		showMoreView.toggle(to: .showLoader)
+		tableView.tableFooterView?.makeToast("loading latest posts in developing", duration: 2, position: .center)
 	}
 }
 
