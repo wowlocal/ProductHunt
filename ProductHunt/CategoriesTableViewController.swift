@@ -23,17 +23,15 @@ class CategoriesTableViewController: UITableViewController {
 			tableView.reloadSections(sections as IndexSet, with: .automatic)
 		}
 	}
-	
 	weak var mainScreen: MainScreen?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		navigationItem.title = "Categories"
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
-		
 		tableView.tableFooterView = UIView()
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: rowId)
-    }
+	}
 	
 	func handleCancel() {
 		dismiss(animated: true, completion: nil)

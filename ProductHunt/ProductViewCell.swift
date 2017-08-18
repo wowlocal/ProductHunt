@@ -11,15 +11,6 @@ import SnapKit
 
 class ProductViewCell: UITableViewCell {
 	
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		setupViews()
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
 	let nameLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 18)
@@ -47,6 +38,15 @@ class ProductViewCell: UITableViewCell {
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
 		return button
 	}()
+	
+	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		setupViews()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	//MARK: - Making constraints for UI elements
 	
@@ -55,7 +55,6 @@ class ProductViewCell: UITableViewCell {
 		addSubview(nameLabel)
 		addSubview(taglineLabel)
 		addSubview(upvotesCount)
-		
 		thumbnailImageView.snp.makeConstraints { (make) in
 			make.left.equalTo(15)
 			make.centerY.equalTo(self)
@@ -78,7 +77,6 @@ class ProductViewCell: UITableViewCell {
 			make.bottom.equalTo(-5)
 			make.right.equalTo(-16)
 		}
-		
 	}
 	
 }

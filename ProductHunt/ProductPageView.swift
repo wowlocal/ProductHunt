@@ -15,20 +15,6 @@ protocol ProductPageViewDelegate: class {
 class ProductPageView: UIView {
 	
 	weak var delegate: ProductPageViewDelegate?
-	
-	convenience init() {
-		self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-	}
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setupViews()
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
 	let nameLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.boldSystemFont(ofSize: 22)
@@ -61,32 +47,39 @@ class ProductPageView: UIView {
 		return button
 	}()
 	
+	convenience init() {
+		self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+	}
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setupViews()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
 	func handleActionButton(_ button: UIButton) {
 		delegate?.productPageView(self, button: button)
 	}
 	
 	func setupViews() {
-		
 		let scrollView = UIScrollView()
 		addSubview(scrollView)
-		
 		scrollView.snp.makeConstraints { (make) in
 			make.edges.equalTo(self)
 		}
-		
 		let containerView = UIView()
 		scrollView.addSubview(containerView)
-		
 		containerView.snp.makeConstraints { (make) in
 			make.edges.equalTo(scrollView)
 			make.width.equalTo(self)
 		}
-		
 		containerView.addSubview(nameLabel)
 		containerView.addSubview(productImageView)
 		containerView.addSubview(taglineLabel)
 		containerView.addSubview(getItButton)
-		
 		nameLabel.snp.makeConstraints { (make) in
 			make.left.equalTo(20)
 			make.top.equalTo(12)

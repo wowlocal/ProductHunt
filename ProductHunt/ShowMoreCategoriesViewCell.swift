@@ -17,22 +17,7 @@
 import UIKit
 import SnapKit
 
-	
 class ShowMoreCategoriesViewCell: UICollectionViewCell {
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setupViews()
-	}
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	override var isHighlighted: Bool {
-		didSet {
-			categoryLabel.textColor = isHighlighted ? UIColor.rgb(r: 64, g: 84, b: 254, a: 0.3) : UIColor.rgb(r: 64, g: 84, b: 254)
-		}
-	}
 	
 	let categoryLabel: UILabel = {
 		let label = UILabel()
@@ -43,10 +28,22 @@ class ShowMoreCategoriesViewCell: UICollectionViewCell {
 		label.preferredMaxLayoutWidth = 10
 		return label
 	}()
+	override var isHighlighted: Bool {
+		didSet {
+			categoryLabel.textColor = isHighlighted ? UIColor.rgb(r: 64, g: 84, b: 254, a: 0.3) : UIColor.rgb(r: 64, g: 84, b: 254)
+		}
+	}
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setupViews()
+	}
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
 	
 	func setupViews() {
 		addSubview(categoryLabel)
-		
 		categoryLabel.snp.makeConstraints { (make) in
 			make.top.equalTo(5)
 			make.bottom.equalTo(-5)

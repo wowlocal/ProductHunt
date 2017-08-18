@@ -16,6 +16,10 @@ private let showMoreCategoriesCellId = "showMoreCategoriesCellId"
 
 class ProductListTableViewController: UITableViewController, MainScreen {
 
+	let token = Networker.sharedInstance.accessToken
+	let baseURL = Networker.sharedInstance.baseURL
+	let refresher = UIRefreshControl()
+	private let screenWidth = UIScreen.main.bounds.width
 	var categories: [Category] = [] {
 		didSet {
 			//TODO: FIX IT
@@ -38,11 +42,7 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 			categoriesCollectionView.reloadData()
 		}
 	}
-	
-	let token = Networker.sharedInstance.accessToken
-	let baseURL = Networker.sharedInstance.baseURL
-	let refresher = UIRefreshControl()
-	private let screenWidth = UIScreen.main.bounds.width
+	var numberOfShownPosts = 5
 	var numberOfShownCategories = 3 {
 		didSet {
 			categoriesCollectionView.reloadData()
@@ -51,8 +51,6 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 	var showExtraCategories: Bool {
 		return categories.count > numberOfShownCategories
 	}
-	var numberOfShownPosts = 5
-	
 	lazy var activityIndicator: UIActivityIndicatorView = {
 		let indicator = UIActivityIndicatorView()
 		indicator.center = self.view.center
@@ -140,6 +138,7 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 			}
 		}
 	}
+	
 	func fetchCategories() {
 		let parameters: Parameters = ["access_token": token]
 		Alamofire.request("\(baseURL)v1/categories", parameters: parameters).responseJSON { [weak self] (response) in
@@ -164,11 +163,9 @@ extension ProductListTableViewController {
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return posts.count
 	}
-
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ProductViewCell
-		
 		let post = posts[indexPath.item]
 		if let name = post.name {
 			cell.nameLabel.text = name
@@ -182,7 +179,6 @@ extension ProductListTableViewController {
 		if let thumbnailURL = post.thumbnailURL {
 			cell.thumbnailImageView.loadImageUsingCacheWithUrlString(thumbnailURL)
 		}
-		
 		return cell
 	}
 	
@@ -203,10 +199,12 @@ extension ProductListTableViewController {
 
 // MARK: - ShowMoreViewDelegate
 extension ProductListTableViewController: ShowMoreViewDelegate {
+	
 	func showMoreView(_ showMoreView: ShowMoreView, button: UIButton) {
 		showMoreView.toggle(to: .showLoader)
 		tableView.tableFooterView?.makeToast("loading latest posts in developing", duration: 2, position: .center)
 	}
+	
 }
 
 // MARK: - UICollectionViewDelegate
@@ -250,7 +248,6 @@ extension ProductListTableViewController: UICollectionViewDataSource {
 		} else {
 			cell.backgroundColorCategory = category == currentCategory ? UIColor.red : UIColor(hexString: "#da552f")!
 		}
-		
 		return cell
 	}
 	

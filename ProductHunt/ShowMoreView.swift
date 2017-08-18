@@ -19,33 +19,7 @@ protocol ShowMoreViewDelegate: class {
 class ShowMoreView: UIView {
 	
 	weak var delegate: ShowMoreViewDelegate?
-
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setupViews()
-	}
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	convenience init(frame: CGRect, with state: ShowMoreViewState) {
-		self.init(frame: frame)
-		toggle(to: state)
-	}
-	
 	var state: ShowMoreViewState = .showButton
-	
-	func toggle(to state: ShowMoreViewState) {
-		self.state = state
-		switch state {
-		case .showButton:
-			loader.stopAnimating()
-			showMoreButton.isHidden = false
-		case .showLoader:
-			loader.startAnimating()
-			showMoreButton.isHidden = true
-		}
-	}
-	
 	let loader: UIActivityIndicatorView = {
 		let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
 		indicator.color = .black
@@ -65,9 +39,34 @@ class ShowMoreView: UIView {
 		return view
 	}()
 
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setupViews()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	convenience init(frame: CGRect, with state: ShowMoreViewState) {
+		self.init(frame: frame)
+		toggle(to: state)
+	}
+	
+	func toggle(to state: ShowMoreViewState) {
+		self.state = state
+		switch state {
+		case .showButton:
+			loader.stopAnimating()
+			showMoreButton.isHidden = false
+		case .showLoader:
+			loader.startAnimating()
+			showMoreButton.isHidden = true
+		}
+	}
+	
 	//MARK: - Making constraints for UI elements
 	func setupViews() {
-		
 		addSubview(loader)
 		addSubview(showMoreButton)
 		addSubview(borderLine)
@@ -87,7 +86,9 @@ class ShowMoreView: UIView {
 		}
 		
 	}
+	
 	func handleActionButton(_ button: UIButton) {
 		delegate?.showMoreView(self, button: button)
 	}
+	
 }

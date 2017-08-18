@@ -11,7 +11,6 @@ import UIKit
 class ProductPageViewController: UIViewController {
 	
 	let productPageView = ProductPageView()
-	
 	var post: Post? {
 		didSet {
 			if let name = post?.name {
@@ -30,12 +29,12 @@ class ProductPageViewController: UIViewController {
 		super.loadView()
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
 		                                                    target: self, action: #selector(shareButtonAction))
+		
 	}
 	
 	func shareButtonAction() {
 		let activityVC = UIActivityViewController(activityItems: [post?.name ?? "", post?.redirectURL ?? ""], applicationActivities: nil)
 		activityVC.popoverPresentationController?.sourceView = self.view
-
 		self.present(activityVC, animated: true, completion: nil)
 	}
 	
@@ -50,6 +49,7 @@ class ProductPageViewController: UIViewController {
 
 //MARK: - ProductPageViewDelegate
 extension ProductPageViewController: ProductPageViewDelegate {
+	
 	func productPageView(_ productPageView: ProductPageView, button: UIButton) {
 		guard let redirectURL = post?.redirectURL,
 			let url = URL(string: redirectURL) else { return }
@@ -59,7 +59,6 @@ extension ProductPageViewController: ProductPageViewDelegate {
 			UIApplication.shared.openURL(url)
 		}
 	}
-	
 	
 }
 

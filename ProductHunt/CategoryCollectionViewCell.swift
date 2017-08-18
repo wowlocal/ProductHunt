@@ -10,26 +10,11 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
 	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setupViews()
-	}
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	override var isHighlighted: Bool {
-		didSet {
-			backgroundCategoryView.backgroundColor = isHighlighted ? UIColor.rgb(r: 186, g: 4, b: 21) : backgroundColorCategory
-		}
-	}
-	
 	var backgroundColorCategory: UIColor = UIColor(hexString: "#da552f")! {
 		didSet {
 			backgroundCategoryView.backgroundColor = backgroundColorCategory
 		}
 	}
-	
 	let backgroundCategoryView: UIView = {
 		let view = UIView()
 		view.layer.cornerRadius = 15
@@ -44,13 +29,25 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 		label.preferredMaxLayoutWidth = 10
 		return label
 	}()
+	override var isHighlighted: Bool {
+		didSet {
+			backgroundCategoryView.backgroundColor = isHighlighted ? UIColor.rgb(r: 186, g: 4, b: 21) : backgroundColorCategory
+		}
+	}
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setupViews()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
 	
 	func setupViews() {
 		addSubview(backgroundCategoryView)
 		addSubview(categoryLabel)
-		
 		backgroundCategoryView.backgroundColor = backgroundColorCategory
-
 		categoryLabel.snp.makeConstraints { (make) in
 			make.top.equalTo(5)
 			make.bottom.equalTo(-5)
