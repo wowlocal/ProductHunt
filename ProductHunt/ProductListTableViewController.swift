@@ -16,8 +16,8 @@ private let showMoreCategoriesCellId = "showMoreCategoriesCellId"
 
 class ProductListTableViewController: UITableViewController, MainScreen {
 
-	let token = Networker.sharedInstance.accessToken
-	let baseURL = Networker.sharedInstance.baseURL
+	let token = Networker.accessToken
+	let baseURL = Networker.baseURL
 	let refresher = UIRefreshControl()
 	private let screenWidth = UIScreen.main.bounds.width
 	var categories: [Category] = [] {
@@ -36,7 +36,7 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 			self.refresher.endRefreshing()
 		}
 	}
-	var currentCategory: Category = Category(slug: "tech", name: "Tech", color: UIColor(hexString: "#da552f")!) {
+	var currentCategory: Category = Category(slug: "tech", name: "Tech", color: Appearance.primaryColor) {
 		didSet {
 			downloadPosts()
 			categoriesCollectionView.reloadData()
@@ -55,7 +55,7 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 		let indicator = UIActivityIndicatorView()
 		indicator.center = self.view.center
 		indicator.hidesWhenStopped = true
-		indicator.color = UIColor(hexString: "#da552f")
+		indicator.color = Appearance.primaryColor
 		return indicator
 	}()
 	lazy var showMoreView: ShowMoreView = {
@@ -244,9 +244,9 @@ extension ProductListTableViewController: UICollectionViewDataSource {
 		cell.categoryLabel.text = category.name
 		
 		if let color = category.color {
-			cell.backgroundColorCategory = category == currentCategory ? UIColor.red : color
+			cell.backgroundColorCategory = category == currentCategory ? color.brighter() : color
 		} else {
-			cell.backgroundColorCategory = category == currentCategory ? UIColor.red : UIColor(hexString: "#da552f")!
+			cell.backgroundColorCategory = category == currentCategory ? Appearance.primaryColor.brighter() : Appearance.primaryColor
 		}
 		return cell
 	}

@@ -15,13 +15,13 @@ class ProductViewCell: UITableViewCell {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 18)
 		label.numberOfLines = 2
-		label.textColor = .black
+		label.textColor = Appearance.titleTextColor
 		return label
 	}()
 	let taglineLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 12)
-		label.textColor = .gray
+		label.textColor = Appearance.bodyTextColor
 		label.numberOfLines = 1
 		return label
 	}()

@@ -17,6 +17,7 @@ func != (a: Category, b: Category) -> Bool {
 }
 
 struct Category {
+	
 	private let _slug: String?
 	private let _name: String?
 	private let _color: UIColor?

@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
 	
-	var backgroundColorCategory: UIColor = UIColor(hexString: "#da552f")! {
+	var backgroundColorCategory: UIColor = Appearance.primaryColor {
 		didSet {
 			backgroundCategoryView.backgroundColor = backgroundColorCategory
 		}
@@ -30,8 +30,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 		return label
 	}()
 	override var isHighlighted: Bool {
-		didSet {
-			backgroundCategoryView.backgroundColor = isHighlighted ? UIColor.rgb(r: 186, g: 4, b: 21) : backgroundColorCategory
+		willSet {
+			backgroundCategoryView.backgroundColor = newValue ? backgroundColorCategory.darker(): backgroundColorCategory
 		}
 	}
 	

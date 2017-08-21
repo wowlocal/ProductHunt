@@ -29,8 +29,8 @@ class ShowMoreCategoriesViewCell: UICollectionViewCell {
 		return label
 	}()
 	override var isHighlighted: Bool {
-		didSet {
-			categoryLabel.textColor = isHighlighted ? UIColor.rgb(r: 64, g: 84, b: 254, a: 0.3) : UIColor.rgb(r: 64, g: 84, b: 254)
+		willSet {
+			categoryLabel.textColor = newValue ? UIColor.rgb(r: 64, g: 84, b: 254, a: 0.3) : UIColor.rgb(r: 64, g: 84, b: 254)
 		}
 	}
 	

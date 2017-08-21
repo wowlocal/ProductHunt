@@ -18,7 +18,7 @@ class ProductPageView: UIView {
 	let nameLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.boldSystemFont(ofSize: 22)
-		label.textColor = UIColor.rgb(r: 34, g: 34, b: 34)
+		label.textColor = Appearance.titleTextColor
 		label.numberOfLines = 3
 		return label
 	}()
@@ -33,7 +33,7 @@ class ProductPageView: UIView {
 		let field = UILabel()
 		field.font = UIFont.systemFont(ofSize: 17)
 		field.numberOfLines = 9999999
-		field.textColor = UIColor.rgb(r: 102, g: 102, b: 102)
+		field.textColor = Appearance.bodyTextColor
 		return field
 	}()
 	let getItButton: UIButton = {
