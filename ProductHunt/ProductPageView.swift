@@ -46,6 +46,13 @@ class ProductPageView: UIView {
 		button.addTarget(self, action: #selector(handleActionButton(_:)), for: .touchUpInside)
 		return button
 	}()
+	let indicatorView: UIActivityIndicatorView = {
+		let view = UIActivityIndicatorView()
+		view.color = .gray
+		view.hidesWhenStopped = true
+		return view
+	}()
+	private var valueObservation: NSKeyValueObservation!
 	
 	convenience init() {
 		self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -58,6 +65,10 @@ class ProductPageView: UIView {
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	deinit {
+		productImageView.removeObserver(valueObservation, forKeyPath: #keyPath(UIImageView.image))
 	}
 	
 	func handleActionButton(_ button: UIButton) {
@@ -80,6 +91,15 @@ class ProductPageView: UIView {
 		containerView.addSubview(productImageView)
 		containerView.addSubview(taglineLabel)
 		containerView.addSubview(getItButton)
+		containerView.addSubview(indicatorView)
+		
+		indicatorView.startAnimating()
+		valueObservation = productImageView.observe(\.image, options: [.new]) { [unowned self] (image, change) in
+			if change.newValue is UIImage {
+				self.indicatorView.stopAnimating()
+			}
+		}
+		
 		nameLabel.snp.makeConstraints { (make) in
 			make.left.equalTo(20)
 			make.top.equalTo(12)
@@ -91,6 +111,9 @@ class ProductPageView: UIView {
 			make.right.equalTo(self)
 			make.size.height.equalTo(self.frame.width / 16 * 9)
 			make.size.width.equalTo(self.frame.width)
+		}
+		indicatorView.snp.makeConstraints { (make) in
+			make.center.equalTo(productImageView.snp.center)
 		}
 		taglineLabel.snp.makeConstraints { (make) in
 			make.top.equalTo(productImageView.snp.bottom).offset(12)

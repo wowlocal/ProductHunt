@@ -16,8 +16,10 @@ struct Networker {
 }
 
 struct Appearance {
+	
 	static let primaryColor: UIColor = UIColor(hexString: "#da552f")!
 	
 	static let titleTextColor: UIColor = UIColor.rgb(r: 34, g: 34, b: 34)
 	static let bodyTextColor: UIColor = UIColor.rgb(r: 102, g: 102, b: 102)
+	
 }

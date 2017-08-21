@@ -38,6 +38,13 @@ class ProductViewCell: UITableViewCell {
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
 		return button
 	}()
+	let indicatorView: UIActivityIndicatorView = {
+		let view = UIActivityIndicatorView()
+		view.color = .gray
+		view.hidesWhenStopped = true
+		return view
+	}()
+	private var valueObservation: NSKeyValueObservation!
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -47,20 +54,35 @@ class ProductViewCell: UITableViewCell {
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
+	deinit {
+		thumbnailImageView.removeObserver(valueObservation, forKeyPath: #keyPath(UIImageView.image))
+	}
 
 	//MARK: - Making constraints for UI elements
-	
 	func setupViews() {
 		addSubview(thumbnailImageView)
 		addSubview(nameLabel)
 		addSubview(taglineLabel)
 		addSubview(upvotesCount)
+		addSubview(indicatorView)
+		
+		indicatorView.startAnimating()
+		valueObservation = thumbnailImageView.observe(\.image, options: [.new]) { [unowned self] (image, change) in
+			if change.newValue is UIImage {
+				self.indicatorView.stopAnimating()
+			}
+		}
+		
 		thumbnailImageView.snp.makeConstraints { (make) in
 			make.left.equalTo(15)
 			make.centerY.equalTo(self)
 			make.size.equalTo(CGSize(width: 90, height: 90))
 			make.top.equalTo(5)
 			make.bottom.equalTo(-5)
+		}
+		indicatorView.snp.makeConstraints { (make) in
+			make.center.equalTo(thumbnailImageView.snp.center)
 		}
 		nameLabel.snp.makeConstraints { (make) in
 			make.top.equalTo(5)
