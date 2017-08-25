@@ -36,14 +36,14 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 			self.refresher.endRefreshing()
 		}
 	}
-	var currentCategory: Category = Category(slug: "tech", name: "Tech", color: Appearance.primaryColor) {
+	var currentCategory: Category = Category(slug: "tech", name: "Tech", color: Appearance.PrimaryColor) {
 		didSet {
 			downloadPosts()
 			categoriesCollectionView.reloadData()
 		}
 	}
 	var numberOfShownPosts = 5
-	var numberOfShownCategories = 3 {
+	var numberOfShownCategories = 4 {
 		didSet {
 			categoriesCollectionView.reloadData()
 		}
@@ -55,7 +55,7 @@ class ProductListTableViewController: UITableViewController, MainScreen {
 		let indicator = UIActivityIndicatorView()
 		indicator.center = self.view.center
 		indicator.hidesWhenStopped = true
-		indicator.color = Appearance.primaryColor
+		indicator.color = Appearance.PrimaryColor
 		return indicator
 	}()
 	lazy var showMoreView: ShowMoreView = {
@@ -246,7 +246,7 @@ extension ProductListTableViewController: UICollectionViewDataSource {
 		if let color = category.color {
 			cell.backgroundColorCategory = category == currentCategory ? color.brighter() : color
 		} else {
-			cell.backgroundColorCategory = category == currentCategory ? Appearance.primaryColor.brighter() : Appearance.primaryColor
+			cell.backgroundColorCategory = category == currentCategory ? Appearance.PrimaryColor.brighter() : Appearance.PrimaryColor
 		}
 		return cell
 	}

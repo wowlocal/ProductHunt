@@ -15,13 +15,13 @@ class ProductViewCell: UITableViewCell {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 18)
 		label.numberOfLines = 2
-		label.textColor = Appearance.titleTextColor
+		label.textColor = Appearance.TitleTextColor
 		return label
 	}()
 	let taglineLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 12)
-		label.textColor = Appearance.bodyTextColor
+		label.textColor = Appearance.BodyTextColor
 		label.numberOfLines = 1
 		return label
 	}()
@@ -30,7 +30,7 @@ class ProductViewCell: UITableViewCell {
 		imageView.contentMode = .scaleAspectFill
 		imageView.layer.masksToBounds = true
 		imageView.layer.cornerRadius = 5
-		imageView.backgroundColor = UIColor.rgb(r: 246, g: 246, b: 246)
+		imageView.backgroundColor = Appearance.BackgroundColor
 		return imageView
 	}()
 	let upvotesCount: UIButton = {
@@ -68,6 +68,7 @@ class ProductViewCell: UITableViewCell {
 		addSubview(indicatorView)
 		
 		indicatorView.startAnimating()
+
 		valueObservation = thumbnailImageView.observe(\.image, options: [.new]) { [unowned self] (image, change) in
 			if change.newValue is UIImage {
 				self.indicatorView.stopAnimating()

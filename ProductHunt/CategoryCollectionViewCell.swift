@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
 	
-	var backgroundColorCategory: UIColor = Appearance.primaryColor {
+	var backgroundColorCategory: UIColor = Appearance.PrimaryColor {
 		didSet {
 			backgroundCategoryView.backgroundColor = backgroundColorCategory
 		}
@@ -57,6 +57,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 		backgroundCategoryView.snp.makeConstraints { (make) in
 			make.edges.equalTo(self)
 		}
+		
 	}
 	
 }
